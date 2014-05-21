@@ -1,6 +1,8 @@
 package com.example.accelexp2;
 
         import android.app.Activity;
+        import android.content.ClipData;
+        import android.content.ClipboardManager;
         import android.content.Context;
         import android.graphics.Color;
         import android.hardware.Sensor;
@@ -8,7 +10,17 @@ package com.example.accelexp2;
         import android.hardware.SensorEventListener;
         import android.hardware.SensorManager;
         import android.os.Bundle;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
         import android.widget.TextView;
+
+        import java.io.File;
+        import java.io.FileNotFoundException;
+        import java.io.FileOutputStream;
+        import java.io.IOException;
+        import java.io.OutputStream;
+        import java.io.OutputStreamWriter;
 
 public class AccelerationActivity extends Activity {
     private TextView xResult;
@@ -17,6 +29,14 @@ public class AccelerationActivity extends Activity {
     private SensorManager sensorManager;
     private Sensor sensor;
     private float x, y, z;
+
+    private static final String TAG = "AccelerationActivity";
+    private boolean logging = false;
+    private Button logButton;
+
+    private String logString;
+    private Button copyButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +52,14 @@ public class AccelerationActivity extends Activity {
         xResult.setText("No result yet");
         yResult.setText("No result yet");
         zResult.setText("No result yet");
+
+        logging = false;
+        logButton = (Button) findViewById(R.id.log_button);
+        logButton.setText("Enable Logging");
+        logString = "";
+
+        copyButton = (Button) findViewById(R.id.copy_button);
+        copyButton.setText("Copy Log");
     }
 
     private void refreshDisplay() {
@@ -67,11 +95,20 @@ public class AccelerationActivity extends Activity {
         }
     }
 
+    private void log() {
+        if (logging)
+        {
+            Log.i(TAG, x + ", " + y + ", " + z);
+            logString = logString + x + ", " + y + ", " + z + "\n";
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(accelerationListener, sensor,
                 SensorManager.SENSOR_DELAY_GAME);
+
     }
 
     @Override
@@ -91,7 +128,41 @@ public class AccelerationActivity extends Activity {
             y = event.values[1];
             z = event.values[2];
             refreshDisplay();
+            log();
         }
 
     };
+
+    public void toggleLogging(View view) {
+        if (logging) {
+
+            logging = false;
+            logButton.setText("Enable Logging");
+            Log.i(TAG, "...Stopping Logging");
+
+            copyButton.setText("Copy Log");
+
+        } else {
+            // reset logString
+            logString = "";
+
+            logging = true;
+            logButton.setText("Disable Logging");
+            Log.i(TAG, "Starting Logging...");
+
+            copyButton.setText("Log Copying is Disabled");
+        }
+    }
+
+    public void copyLog(View view) {
+        if (!logging) {
+            ClipboardManager clipboard =
+                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip =
+                    ClipData.newPlainText("log", "==Begin Log==\n" + logString + "==End Log==");
+            clipboard.setPrimaryClip(clip);
+            Log.i(TAG, "Copied!");
+        }
+    }
+
 }

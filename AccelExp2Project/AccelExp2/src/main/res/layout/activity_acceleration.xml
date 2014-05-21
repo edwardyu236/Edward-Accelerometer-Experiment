@@ -13,21 +13,40 @@ android:layout_height="fill_parent" >
         android:id="@+id/x_result"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="60sp"
-        android:text=""
+        android:textSize="30sp"
+        android:text="x placeholder"
         />
     <TextView
         android:id="@+id/y_result"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="60sp"
-        android:text=""
+        android:textSize="30sp"
+        android:text="y placeholder"
         />
     <TextView
         android:id="@+id/z_result"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="60sp"
-        android:text=""
+        android:textSize="30sp"
+        android:text="z placeholder"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logging"
+        android:id="@+id/log_button"
+        android:layout_gravity="center_horizontal"
+        android:onClick="toggleLogging"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LogCopy"
+        android:id="@+id/copy_button"
+        android:layout_gravity="center_horizontal"
+        android:onClick="copyLog"
+        />
+
 </LinearLayout>

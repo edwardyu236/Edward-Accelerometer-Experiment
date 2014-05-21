@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="AccelExp2Project" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
-        <option name="SELECTED_BUILD_VARIANT" value="Debug" />
+        <option name="SELECTED_BUILD_VARIANT" value="debug" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebug" />
-        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleTest" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugJava" />
+        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDebugTest" />
         <option name="SOURCE_GEN_TASK_NAME" value="generateDebugSources" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
@@ -25,37 +25,37 @@
     <output url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/classes/debug" />
     <exclude-output />
     <content url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2">
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/r/debug" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/aidl/debug" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/rs/debug" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/buildConfig/debug" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/res/rs/debug" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/r/test" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/aidl/test" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/rs/test" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/buildConfig/test" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/res/rs/test" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/r/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/aidl/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/buildConfig/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/rs/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/res/rs/debug" type="java-resource" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/r/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/aidl/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/buildConfig/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/source/rs/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/res/rs/test/debug" type="java-test-resource" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/res" type="java-resource" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/resources" type="java-resource" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/aidl" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/assets" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/jni" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/rs" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/res" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/debug/resources" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/aidl" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/assets" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/rs" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/res" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/main/resources" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/aidl" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/assets" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/java" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/jni" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/rs" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/res" isTestSource="true" />
-      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/instrumentTest/resources" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/assets" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/java" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/jni" isTestSource="true" />
+      <sourceFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/src/androidTest/rs" isTestSource="true" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/apk" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/assets" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/bundles" />
@@ -64,13 +64,14 @@
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/incremental" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/libs" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/manifests" />
+      <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/res" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/symbols" />
       <excludeFolder url="file://$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="appcompat-v7-19.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.0.0" level="project" />
-    <orderEntry type="library" exported="" name="ComAndroidSupportAppcompatV71900.aar" level="project" />
   </component>
 </module>
 

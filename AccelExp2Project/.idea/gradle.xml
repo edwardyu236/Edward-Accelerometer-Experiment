@@ -5,6 +5,12 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project" />
+            <option value="$USER_HOME$/github/Edward-Accelerometer-Experiment/AccelExp2Project/AccelExp2" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
