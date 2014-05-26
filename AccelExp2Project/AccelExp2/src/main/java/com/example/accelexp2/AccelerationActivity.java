@@ -10,7 +10,6 @@ package com.example.accelexp2;
         import android.hardware.SensorEventListener;
         import android.hardware.SensorManager;
         import android.os.Bundle;
-        import android.text.format.Time;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
@@ -20,8 +19,8 @@ package com.example.accelexp2;
         import java.io.FileNotFoundException;
         import java.io.FileOutputStream;
         import java.io.IOException;
-        import java.io.PrintWriter;
-        import java.util.Date;
+        import java.io.OutputStream;
+        import java.io.OutputStreamWriter;
 
 public class AccelerationActivity extends Activity {
     private TextView xResult;
@@ -34,11 +33,9 @@ public class AccelerationActivity extends Activity {
     private static final String TAG = "AccelerationActivity";
     private boolean logging = false;
     private Button logButton;
-    private Time time;
 
     private String logString;
     private Button copyButton;
-    private Button saveButton;
 
 
     @Override
@@ -63,42 +60,7 @@ public class AccelerationActivity extends Activity {
 
         copyButton = (Button) findViewById(R.id.copy_button);
         copyButton.setText("Copy Log");
-
-        saveButton = (Button) findViewById(R.id.save_button);
-        saveButton.setText("Save Log");
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(accelerationListener, sensor,
-                SensorManager.SENSOR_DELAY_GAME);
-
-    }
-
-    @Override
-    protected void onStop() {
-        sensorManager.unregisterListener(accelerationListener);
-        super.onStop();
-    }
-
-    private SensorEventListener accelerationListener = new SensorEventListener() {
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int acc) {
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
-            time = new Time();
-            time.setToNow();
-            refreshDisplay();
-            log();
-        }
-
-    };
 
     private void refreshDisplay() {
         String xOutput = String.format("x is: %f", x);
@@ -136,12 +98,40 @@ public class AccelerationActivity extends Activity {
     private void log() {
         if (logging)
         {
-            String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + ": " + x + ", " + y + ", " + z);
-            logString = logString + (new Date()).getTime() + "," + x + "," + y + "," + z + ","
-                    + formattedTime + "\n";
+            Log.i(TAG, x + ", " + y + ", " + z);
+            logString = logString + x + ", " + y + ", " + z + "\n";
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(accelerationListener, sensor,
+                SensorManager.SENSOR_DELAY_GAME);
+
+    }
+
+    @Override
+    protected void onStop() {
+        sensorManager.unregisterListener(accelerationListener);
+        super.onStop();
+    }
+
+    private SensorEventListener accelerationListener = new SensorEventListener() {
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int acc) {
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
+            refreshDisplay();
+            log();
+        }
+
+    };
 
     public void toggleLogging(View view) {
         if (logging) {
@@ -151,7 +141,6 @@ public class AccelerationActivity extends Activity {
             Log.i(TAG, "...Stopping Logging");
 
             copyButton.setText("Copy Log");
-            saveButton.setText("Save Log");
 
         } else {
             // reset logString
@@ -162,7 +151,6 @@ public class AccelerationActivity extends Activity {
             Log.i(TAG, "Starting Logging...");
 
             copyButton.setText("Log Copying is Disabled");
-            saveButton.setText("Log Saving is Disabled");
         }
     }
 
@@ -171,37 +159,9 @@ public class AccelerationActivity extends Activity {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip =
-                    ClipData.newPlainText("log", "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
+                    ClipData.newPlainText("log", "==Begin Log==\n" + logString + "==End Log==");
             clipboard.setPrimaryClip(clip);
             Log.i(TAG, "Copied!");
-        }
-    }
-
-    public void saveLog(View view) {
-        if (!logging) {
-            File root = android.os.Environment.getExternalStorageDirectory();
-            File dir = new File(root.getAbsolutePath() + "/accelexp2");
-            dir.mkdirs();
-            Log.i(TAG, "saving: " + time.format("%Y-%m-%d_%H.%M.%S") + ".csv");
-            File file = new File(dir, time.format("%Y-%m-%d_%H.%M.%S")+".csv");
-
-            try {
-                FileOutputStream f = new FileOutputStream(file);
-                PrintWriter pw = new PrintWriter(f);
-                pw.print("Time (ms since unix epoch),x,y,z,Human Time\n" + logString);
-                pw.flush();
-                pw.close();
-                f.close();
-                Log.i(TAG, "Saved!");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
-                        + "Is USB storage on?");
-                saveButton.setText("Issue Saving");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
