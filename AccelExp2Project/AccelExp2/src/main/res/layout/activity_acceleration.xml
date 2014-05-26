@@ -48,5 +48,13 @@ android:layout_height="fill_parent" >
         android:layout_gravity="center_horizontal"
         android:onClick="copyLog"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LogSave"
+        android:id="@+id/save_button"
+        android:layout_gravity="center_horizontal"
+        android:onClick="saveLog"
+        />
 
 </LinearLayout>
