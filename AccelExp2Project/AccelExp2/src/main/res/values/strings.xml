@@ -2,5 +2,5 @@
 <resources>
     <string name="hello">Hello World, AccelerationActivity!</string>
     <string name="app_name">Accelerometer Experiment 2</string>
-    <string name="welcome">Edward\'s Accelerometer Experiment</string>
+    <string name="welcome">Edward\'s Accelerometer and Gyroscope Experiment</string>
 </resources>
