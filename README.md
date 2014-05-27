@@ -6,6 +6,6 @@ Simple Android app displaying raw accelerometer data in x, y, &amp; z directions
 - Logged data being copied to the Android clipboard
 - Logged data being saved to `android-external-storage/accelexp2/` as a `.csv` file with timestamp
 
-*New*
+*New:*
 
 *Better feedback via Toast pop-ups*
