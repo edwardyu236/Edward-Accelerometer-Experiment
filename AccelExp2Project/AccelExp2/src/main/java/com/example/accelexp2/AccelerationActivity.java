@@ -15,6 +15,7 @@ package com.example.accelexp2;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import java.io.File;
         import java.io.FileNotFoundException;
@@ -149,6 +150,8 @@ public class AccelerationActivity extends Activity {
             logging = false;
             logButton.setText("Enable Logging");
             Log.i(TAG, "...Stopping Logging");
+            Toast.makeText(getApplicationContext(),
+                    "Stopping Logging", Toast.LENGTH_SHORT).show();
 
             copyButton.setText("Copy Log");
             saveButton.setText("Save Log");
@@ -160,6 +163,8 @@ public class AccelerationActivity extends Activity {
             logging = true;
             logButton.setText("Disable Logging");
             Log.i(TAG, "Starting Logging...");
+            Toast.makeText(getApplicationContext(),
+                    "Starting Logging", Toast.LENGTH_SHORT).show();
 
             copyButton.setText("Log Copying is Disabled");
             saveButton.setText("Log Saving is Disabled");
@@ -171,9 +176,14 @@ public class AccelerationActivity extends Activity {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip =
-                    ClipData.newPlainText("log", "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
+                    ClipData.newPlainText("log",
+                            "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
             clipboard.setPrimaryClip(clip);
-            Log.i(TAG, "Copied!");
+            Toast.makeText(getApplicationContext(),
+                    "Log Copied!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -182,8 +192,9 @@ public class AccelerationActivity extends Activity {
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File(root.getAbsolutePath() + "/accelexp2");
             dir.mkdirs();
-            Log.i(TAG, "saving: " + time.format("%Y-%m-%d_%H.%M.%S") + ".csv");
-            File file = new File(dir, time.format("%Y-%m-%d_%H.%M.%S")+".csv");
+            String formattedTime = time.format("%Y-%m-%d_%H.%M.%S");
+            Log.i(TAG, "saving: " + formattedTime + ".csv");
+            File file = new File(dir, formattedTime +".csv");
 
             try {
                 FileOutputStream f = new FileOutputStream(file);
@@ -192,16 +203,26 @@ public class AccelerationActivity extends Activity {
                 pw.flush();
                 pw.close();
                 f.close();
-                Log.i(TAG, "Saved!");
+
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + ".csv saved!", Toast.LENGTH_LONG).show();
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
                         + "Is USB storage on?");
-                saveButton.setText("Issue Saving");
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + ".csv Not Found! Check Manifest/USB.",
+                        Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        "Issue Saving!", Toast.LENGTH_SHORT).show();
             }
 
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
