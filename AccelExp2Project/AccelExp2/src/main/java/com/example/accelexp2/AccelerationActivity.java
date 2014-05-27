@@ -53,7 +53,7 @@ public class AccelerationActivity extends Activity {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerationSensor = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
 
-        gyroscopeSensor = sensorManager.getSensorList(Sensor.TYPE_GYROSCOPE).get(0);
+        gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         xResult = (TextView) findViewById(R.id.x_result);
         yResult = (TextView) findViewById(R.id.y_result);
@@ -78,7 +78,7 @@ public class AccelerationActivity extends Activity {
         saveButton = (Button) findViewById(R.id.accel_save_button);
         saveButton.setText("Save Accel Log");
 
-        gyroSaveButton = (Button) findViewById(R.id.accel_save_button);
+        gyroSaveButton = (Button) findViewById(R.id.gyro_save_button);
         gyroSaveButton.setText("Save Gyro Log");
     }
 
