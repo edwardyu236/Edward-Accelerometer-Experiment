@@ -43,35 +43,18 @@ android:layout_height="fill_parent" >
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AccelLogCopy"
-        android:id="@+id/accel_copy_button"
+        android:text="LogCopy"
+        android:id="@+id/copy_button"
         android:layout_gravity="center_horizontal"
-        android:onClick="copyAccelerationLog"
+        android:onClick="copyLog"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AccelLogSave"
-        android:id="@+id/accel_save_button"
+        android:text="LogSave"
+        android:id="@+id/save_button"
         android:layout_gravity="center_horizontal"
-        android:onClick="saveAccelerationLog"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GyroLogCopy"
-        android:id="@+id/gyro_copy_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="copyGyroscopeLog"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GyroLogSave"
-        android:id="@+id/gyro_save_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="saveGyroscopeLog"
+        android:onClick="saveLog"
         />
 
 </LinearLayout>

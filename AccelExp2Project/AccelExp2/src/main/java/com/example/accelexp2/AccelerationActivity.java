@@ -15,6 +15,7 @@ package com.example.accelexp2;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import java.io.File;
         import java.io.FileNotFoundException;
@@ -28,9 +29,8 @@ public class AccelerationActivity extends Activity {
     private TextView yResult;
     private TextView zResult;
     private SensorManager sensorManager;
-    private Sensor accelerationSensor;
-    private Sensor gyroscopeSensor;
-    private float x, y, z, gyroX, gyroY, gyroZ;
+    private Sensor sensor;
+    private float x, y, z;
 
     private static final String TAG = "AccelerationActivity";
     private boolean logging = false;
@@ -38,22 +38,17 @@ public class AccelerationActivity extends Activity {
     private Time time;
 
     private String logString;
-    private String gyroLogString;
-
     private Button copyButton;
-    private Button gyroCopyButton;
     private Button saveButton;
-    private Button gyroSaveButton;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acceleration);
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        accelerationSensor = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
 
-        gyroscopeSensor = sensorManager.getSensorList(Sensor.TYPE_GYROSCOPE).get(0);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
 
         xResult = (TextView) findViewById(R.id.x_result);
         yResult = (TextView) findViewById(R.id.y_result);
@@ -65,37 +60,26 @@ public class AccelerationActivity extends Activity {
         logging = false;
         logButton = (Button) findViewById(R.id.log_button);
         logButton.setText("Enable Logging");
-
-
         logString = "";
-        gyroLogString = "";
 
-        copyButton = (Button) findViewById(R.id.accel_copy_button);
-        copyButton.setText("Copy Accel Log");
-        gyroCopyButton = (Button) findViewById(R.id.gyro_copy_button);
-        gyroCopyButton.setText("Copy Gyro Log");
+        copyButton = (Button) findViewById(R.id.copy_button);
+        copyButton.setText("Copy Log");
 
-        saveButton = (Button) findViewById(R.id.accel_save_button);
-        saveButton.setText("Save Accel Log");
-
-        gyroSaveButton = (Button) findViewById(R.id.accel_save_button);
-        gyroSaveButton.setText("Save Gyro Log");
+        saveButton = (Button) findViewById(R.id.save_button);
+        saveButton.setText("Save Log");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(accelerationListener, accelerationSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(gyroscopeListener, gyroscopeSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(accelerationListener, sensor,
+                SensorManager.SENSOR_DELAY_GAME);
 
     }
 
     @Override
     protected void onStop() {
         sensorManager.unregisterListener(accelerationListener);
-        sensorManager.unregisterListener(gyroscopeListener);
         super.onStop();
     }
 
@@ -113,23 +97,6 @@ public class AccelerationActivity extends Activity {
             time.setToNow();
             refreshDisplay();
             log();
-        }
-
-    };
-
-    private SensorEventListener gyroscopeListener = new SensorEventListener() {
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int acc) {
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            gyroX = event.values[0];
-            gyroY = event.values[1];
-            gyroZ = event.values[2];
-            time = new Time();
-            time.setToNow();
-            gyroscopeLog();
         }
 
     };
@@ -170,21 +137,9 @@ public class AccelerationActivity extends Activity {
     private void log() {
         if (logging)
         {
-
             String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(accel): " + x + ", " + y + ", " + z);
+            Log.i(TAG, formattedTime + ": " + x + ", " + y + ", " + z);
             logString = logString + (new Date()).getTime() + "," + x + "," + y + "," + z + ","
-                    + formattedTime + "\n";
-        }
-    }
-
-    private void gyroscopeLog() {
-        if (logging)
-        {
-            String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(gyro): " + gyroX + ", " + gyroY + ", " + gyroZ);
-            gyroLogString = gyroLogString + (new Date()).getTime() + ","
-                    + gyroX + ", " + gyroY + ", " + gyroZ + ","
                     + formattedTime + "\n";
         }
     }
@@ -195,57 +150,51 @@ public class AccelerationActivity extends Activity {
             logging = false;
             logButton.setText("Enable Logging");
             Log.i(TAG, "...Stopping Logging");
+            Toast.makeText(getApplicationContext(),
+                    "Stopping Logging", Toast.LENGTH_SHORT).show();
 
-            copyButton.setText("Copy Accel Log");
-            saveButton.setText("Save Accel Log");
-            gyroCopyButton.setText("Copy Gyro Log");
-            gyroSaveButton.setText("Save Gyro Log");
+            copyButton.setText("Copy Log");
+            saveButton.setText("Save Log");
 
         } else {
-            // reset logs
+            // reset logString
             logString = "";
-            gyroLogString = "";
 
             logging = true;
             logButton.setText("Disable Logging");
             Log.i(TAG, "Starting Logging...");
+            Toast.makeText(getApplicationContext(),
+                    "Starting Logging", Toast.LENGTH_SHORT).show();
 
             copyButton.setText("Log Copying is Disabled");
             saveButton.setText("Log Saving is Disabled");
-            gyroCopyButton.setText("Log Copying is Disabled");
-            gyroSaveButton.setText("Log Saving is Disabled");
         }
     }
 
-    public void copyAccelerationLog(View view) {
+    public void copyLog(View view) {
         if (!logging) {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("log",
-                    "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
+            ClipData clip =
+                    ClipData.newPlainText("log",
+                            "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
             clipboard.setPrimaryClip(clip);
-            Log.i(TAG, "Copied Accel Log!");
+            Toast.makeText(getApplicationContext(),
+                    "Log Copied!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void copyGyroscopeLog(View view) {
-        if (!logging) {
-            ClipboardManager clipboard =
-                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("log",
-                    "Time (ms since epoch?),x,y,z,Human Time\n" + gyroLogString);
-            clipboard.setPrimaryClip(clip);
-            Log.i(TAG, "Copied Gyro Log!");
-        }
-    }
-
-    public void saveAccelerationLog(View view) {
+    public void saveLog(View view) {
         if (!logging) {
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File(root.getAbsolutePath() + "/accelexp2");
             dir.mkdirs();
-            Log.i(TAG, "saving: " + time.format("%Y-%m-%d_%H.%M.%S") + "-accel.csv");
-            File file = new File(dir, time.format("%Y-%m-%d_%H.%M.%S")+"-accel.csv");
+            String formattedTime = time.format("%Y-%m-%d_%H.%M.%S");
+            Log.i(TAG, "saving: " + formattedTime + ".csv");
+            File file = new File(dir, formattedTime +".csv");
 
             try {
                 FileOutputStream f = new FileOutputStream(file);
@@ -254,46 +203,26 @@ public class AccelerationActivity extends Activity {
                 pw.flush();
                 pw.close();
                 f.close();
-                Log.i(TAG, "Saved Accel Log!");
+
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + ".csv saved!", Toast.LENGTH_LONG).show();
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
                         + "Is USB storage on?");
-                saveButton.setText("Issue Saving");
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + ".csv Not Found! Check Manifest/USB.",
+                        Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
-                saveButton.setText("Issue Saving");
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        "Issue Saving!", Toast.LENGTH_SHORT).show();
             }
 
-        }
-    }
-
-    public void saveGyroscopeLog(View view) {
-        if (!logging) {
-            File root = android.os.Environment.getExternalStorageDirectory();
-            File dir = new File(root.getAbsolutePath() + "/accelexp2");
-            dir.mkdirs();
-            Log.i(TAG, "saving: " + time.format("%Y-%m-%d_%H.%M.%S") + "-gyro.csv");
-            File file = new File(dir, time.format("%Y-%m-%d_%H.%M.%S")+"-gyro.csv");
-
-            try {
-                FileOutputStream f = new FileOutputStream(file);
-                PrintWriter pw = new PrintWriter(f);
-                pw.print("Time (ms since unix epoch),x,y,z,Human Time\n" + gyroLogString);
-                pw.flush();
-                pw.close();
-                f.close();
-                Log.i(TAG, "Saved Gyro Log!");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
-                        + "Is USB storage on?");
-                gyroSaveButton.setText("Issue Saving");
-            } catch (IOException e) {
-                gyroSaveButton.setText("Issue Saving");
-                e.printStackTrace();
-            }
-
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 

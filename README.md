@@ -1,9 +1,11 @@
 Edward-Accelerometer-Experiment
 ===============================
 
-*Update*
+Simple Android app displaying raw accelerometer data in x, y, &amp; z directions with following functionality
+- Logging accelerometer readings to LogCat in IDE with timestamp
+- Logged data being copied to the Android clipboard
+- Logged data being saved to `android-external-storage/accelexp2/` as a `.csv` file with timestamp
 
-*Logging the accelerometer readings to LogCat is now enabled. Also enabled is copying the logged data to the clipboard (for pasting/viewing in another app--especially useful for using this app without being tethered to the computer).*
+*New:*
 
-Basic Android app displaying motion in x, y, &amp; z directions
-
+*Better feedback via Toast pop-ups*
