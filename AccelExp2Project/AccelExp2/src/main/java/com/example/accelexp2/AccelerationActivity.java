@@ -173,14 +173,14 @@ public class AccelerationActivity extends Activity {
 
     public void copyLog(View view) {
         if (!logging) {
-            ClipboardManager clipboard =
-                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip =
-                    ClipData.newPlainText("log",
-                            "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
-            clipboard.setPrimaryClip(clip);
+//            ClipboardManager clipboard =
+//                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//            ClipData clip =
+//                    ClipData.newPlainText("log",
+//                            "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
+//            clipboard.setPrimaryClip(clip);
             Toast.makeText(getApplicationContext(),
-                    "Log Copied!", Toast.LENGTH_SHORT).show();
+                    "Log Copy Temp Disabled!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(),
                     "Log copying is disabled!", Toast.LENGTH_SHORT).show();
