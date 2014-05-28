@@ -15,6 +15,7 @@ package com.example.accelexp2;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import java.io.File;
         import java.io.FileNotFoundException;
@@ -170,7 +171,6 @@ public class AccelerationActivity extends Activity {
     private void log() {
         if (logging)
         {
-
             String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
             Log.i(TAG, formattedTime + "(accel): " + x + ", " + y + ", " + z);
             logString = logString + (new Date()).getTime() + "," + x + "," + y + "," + z + ","
@@ -195,6 +195,8 @@ public class AccelerationActivity extends Activity {
             logging = false;
             logButton.setText("Enable Logging");
             Log.i(TAG, "...Stopping Logging");
+            Toast.makeText(getApplicationContext(),
+                    "Stopping Logging", Toast.LENGTH_SHORT).show();
 
             copyButton.setText("Copy Accel Log");
             saveButton.setText("Save Accel Log");
@@ -209,6 +211,8 @@ public class AccelerationActivity extends Activity {
             logging = true;
             logButton.setText("Disable Logging");
             Log.i(TAG, "Starting Logging...");
+            Toast.makeText(getApplicationContext(),
+                    "Starting Logging", Toast.LENGTH_SHORT).show();
 
             copyButton.setText("Log Copying is Disabled");
             saveButton.setText("Log Saving is Disabled");
@@ -222,9 +226,14 @@ public class AccelerationActivity extends Activity {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("log",
-                    "Time (ms since epoch?),x,y,z,Human Time\n" + logString);
+                    "System Time (milliseconds),x,y,z,Human-Readable Time\n" + logString);
             clipboard.setPrimaryClip(clip);
             Log.i(TAG, "Copied Accel Log!");
+            Toast.makeText(getApplicationContext(),
+                    "Acceleration Log Copied!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -233,9 +242,14 @@ public class AccelerationActivity extends Activity {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("log",
-                    "Time (ms since epoch?),x,y,z,Human Time\n" + gyroLogString);
+                    "System Time (milliseconds),x,y,z,Human-Readable Time\n" + gyroLogString);
             clipboard.setPrimaryClip(clip);
             Log.i(TAG, "Copied Gyro Log!");
+            Toast.makeText(getApplicationContext(),
+                    "Gyroscope Log Copied!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -244,27 +258,36 @@ public class AccelerationActivity extends Activity {
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File(root.getAbsolutePath() + "/accelexp2");
             dir.mkdirs();
-            Log.i(TAG, "saving: " + time.format("%Y-%m-%d_%H.%M.%S") + "-accel.csv");
-            File file = new File(dir, time.format("%Y-%m-%d_%H.%M.%S")+"-accel.csv");
+            String formattedTime = time.format("%Y-%m-%d_%H.%M.%S");
+            Log.i(TAG, "saving: " + formattedTime + "-accel.csv");
+            File file = new File(dir, formattedTime +"-accel.csv");
 
             try {
                 FileOutputStream f = new FileOutputStream(file);
                 PrintWriter pw = new PrintWriter(f);
-                pw.print("Time (ms since unix epoch),x,y,z,Human Time\n" + logString);
+                pw.print("System Time (milliseconds),x,y,z,Human-Readable Time\n" + logString);
                 pw.flush();
                 pw.close();
                 f.close();
                 Log.i(TAG, "Saved Accel Log!");
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + "-accel.csv saved!", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
                         + "Is USB storage on?");
-                saveButton.setText("Issue Saving");
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + "-accel.csv Not Found! Check Manifest/USB.",
+                        Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
-                saveButton.setText("Issue Saving");
+                Toast.makeText(getApplicationContext(),
+                        "Issue Saving Accel Log!", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Log saving is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -273,28 +296,36 @@ public class AccelerationActivity extends Activity {
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File(root.getAbsolutePath() + "/accelexp2");
             dir.mkdirs();
-            Log.i(TAG, "saving: " + time.format("%Y-%m-%d_%H.%M.%S") + "-gyro.csv");
-            File file = new File(dir, time.format("%Y-%m-%d_%H.%M.%S")+"-gyro.csv");
+            String formattedTime = time.format("%Y-%m-%d_%H.%M.%S");
+            Log.i(TAG, "saving: " + formattedTime + "-gyro.csv");
+            File file = new File(dir, formattedTime +"-gyro.csv");
 
             try {
                 FileOutputStream f = new FileOutputStream(file);
                 PrintWriter pw = new PrintWriter(f);
-                pw.print("Time (ms since unix epoch),x,y,z,Human Time\n" + gyroLogString);
+                pw.print("System Time (milliseconds),x,y,z,Human-Readable Time\n" + gyroLogString);
                 pw.flush();
                 pw.close();
                 f.close();
                 Log.i(TAG, "Saved Gyro Log!");
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + "-gyro.csv saved!", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
                         + "Is USB storage on?");
-                gyroSaveButton.setText("Issue Saving");
-            } catch (IOException e) {
-                gyroSaveButton.setText("Issue Saving");
+                Toast.makeText(getApplicationContext(),
+                        formattedTime + "-gyro.csv Not Found! Check Manifest/USB.",
+                        Toast.LENGTH_SHORT).show();            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(),
+                        "Issue Saving Gyroscope Log!", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
-        }
+        } else {
+            Toast.makeText(getApplicationContext(),
+                "Log saving is disabled!", Toast.LENGTH_SHORT).show();
+    }
     }
 
 }
