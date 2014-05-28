@@ -82,9 +82,9 @@ public class AccelerationActivity extends Activity {
         gyroLogString = "";
 
         copyButton = (Button) findViewById(R.id.accel_copy_button);
-        copyButton.setText("Copy Accel Log");
+        copyButton.setText("SII: Copying is Disabled");
         gyroCopyButton = (Button) findViewById(R.id.gyro_copy_button);
-        gyroCopyButton.setText("Copy Gyro Log");
+        gyroCopyButton.setText("SII: Copying is Disabled");
 
         saveButton = (Button) findViewById(R.id.accel_save_button);
         saveButton.setText("Save Accel Log");
@@ -242,9 +242,9 @@ public class AccelerationActivity extends Activity {
             Toast.makeText(getApplicationContext(),
                     "Stopping Logging", Toast.LENGTH_SHORT).show();
 
-            copyButton.setText("Copy Accel Log");
+            copyButton.setText("SII: Copying is Disabled");
             saveButton.setText("Save Accel Log");
-            gyroCopyButton.setText("Copy Gyro Log");
+            gyroCopyButton.setText("SII: Copying is Disabled");
             gyroSaveButton.setText("Save Gyro Log");
 
         } else {
@@ -267,14 +267,8 @@ public class AccelerationActivity extends Activity {
 
     public void copyAccelerationLog(View view) {
         if (!logging) {
-            ClipboardManager clipboard =
-                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("log",
-                    "System Time (milliseconds),x,y,z,Human-Readable Time\n" + logString);
-            clipboard.setPrimaryClip(clip);
-            Log.i(TAG, "Copied Accel Log!");
             Toast.makeText(getApplicationContext(),
-                    "Acceleration Log Copied!", Toast.LENGTH_SHORT).show();
+                    "SII: Copying is Disabled", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(),
                     "Log copying is disabled!", Toast.LENGTH_SHORT).show();
@@ -283,14 +277,8 @@ public class AccelerationActivity extends Activity {
 
     public void copyGyroscopeLog(View view) {
         if (!logging) {
-            ClipboardManager clipboard =
-                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("log",
-                    "System Time (milliseconds),x,y,z,Human-Readable Time\n" + gyroLogString);
-            clipboard.setPrimaryClip(clip);
-            Log.i(TAG, "Copied Gyro Log!");
             Toast.makeText(getApplicationContext(),
-                    "Gyroscope Log Copied!", Toast.LENGTH_SHORT).show();
+                    "SII: Copying is Disabled", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(),
                     "Log copying is disabled!", Toast.LENGTH_SHORT).show();
