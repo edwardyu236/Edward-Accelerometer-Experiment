@@ -97,9 +97,9 @@ public class AccelerationActivity extends Activity {
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(accelerationListener, accelerationSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+                SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(gyroscopeListener, gyroscopeSensor,
-                SensorManager.SENSOR_DELAY_FASTEST);
+                SensorManager.SENSOR_DELAY_GAME);
 
     }
 
@@ -315,7 +315,7 @@ public class AccelerationActivity extends Activity {
                 f.close();
                 Log.i(TAG, "Saved Accel Log!");
                 Toast.makeText(getApplicationContext(),
-                        formattedTime + "-accel.csv saved!", Toast.LENGTH_LONG).show();
+                        formattedTime + "-accel.csv saved!", Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
@@ -353,7 +353,7 @@ public class AccelerationActivity extends Activity {
                 f.close();
                 Log.i(TAG, "Saved Gyro Log!");
                 Toast.makeText(getApplicationContext(),
-                        formattedTime + "-gyro.csv saved!", Toast.LENGTH_LONG).show();
+                        formattedTime + "-gyro.csv saved!", Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Log.i(TAG, "File not found. Is WRITE_EXTERNAL_STORAGE in manifest? "
