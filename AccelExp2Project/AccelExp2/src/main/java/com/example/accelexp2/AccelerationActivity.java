@@ -222,7 +222,7 @@ public class AccelerationActivity extends Activity {
 
         } else {
             Toast.makeText(getApplicationContext(),
-                    "Log copying is disabled!", Toast.LENGTH_SHORT).show();
+                    "Log saving is disabled!", Toast.LENGTH_SHORT).show();
         }
     }
 
