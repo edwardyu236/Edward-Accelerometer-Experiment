@@ -325,7 +325,7 @@ public class AccelerationActivity extends Activity {
         } else {
             Toast.makeText(getApplicationContext(),
                 "Log saving is disabled!", Toast.LENGTH_SHORT).show();
-    }
+        }
     }
 
 }
