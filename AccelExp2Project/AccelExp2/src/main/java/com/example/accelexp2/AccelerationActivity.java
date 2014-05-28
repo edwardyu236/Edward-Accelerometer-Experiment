@@ -49,7 +49,7 @@ public class AccelerationActivity extends Activity {
     private Button gyroCopyButton;
     private Button saveButton;
     private Button gyroSaveButton;
-
+    // hopefully this works
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
