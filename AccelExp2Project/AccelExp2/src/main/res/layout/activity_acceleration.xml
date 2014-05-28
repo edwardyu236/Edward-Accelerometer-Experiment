@@ -30,7 +30,7 @@ android:layout_height="fill_parent" >
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Ax is: ±x.xxx"
             />
 
@@ -42,7 +42,7 @@ android:layout_height="fill_parent" >
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Ay is: ±x.xxx"
             />
 
@@ -53,7 +53,7 @@ android:layout_height="fill_parent" >
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Az is: ±x.xxx"
             />
     </LinearLayout>
@@ -76,7 +76,7 @@ android:layout_height="fill_parent" >
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Gx is: ±x.xxx"
             />
 
@@ -87,7 +87,7 @@ android:layout_height="fill_parent" >
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Gy is: ±x.xxx"
             />
 
@@ -98,7 +98,7 @@ android:layout_height="fill_parent" >
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Gz is: ±x.xxx"
             />
     </LinearLayout>

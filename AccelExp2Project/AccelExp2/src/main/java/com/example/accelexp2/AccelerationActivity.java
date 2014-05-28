@@ -185,27 +185,27 @@ public class AccelerationActivity extends Activity {
         String zOutput = String.format("Gz is: %.3f", gyroZ);
 
         xGyroResult.setText(xOutput);
-        if (accelX < -1) {
+        if (gyroX < -1) {
             xGyroResult.setTextColor(Color.RED);
-        } else if (accelX > 1) {
+        } else if (gyroX > 1) {
             xGyroResult.setTextColor(Color.GREEN);
         } else {
             xGyroResult.setTextColor(Color.BLACK);
         }
 
         yGyroResult.setText(yOutput);
-        if (accelY < -1) {
+        if (gyroY < -1) {
             yGyroResult.setTextColor(Color.RED);
-        } else if (accelY > 1) {
+        } else if (gyroY > 1) {
             yGyroResult.setTextColor(Color.GREEN);
         } else {
             yGyroResult.setTextColor(Color.BLACK);
         }
 
         zGyroResult.setText(zOutput);
-        if (accelZ < -1) {
+        if (gyroZ < -1) {
             zGyroResult.setTextColor(Color.RED);
-        } else if (accelZ > 1) {
+        } else if (gyroZ > 1) {
             zGyroResult.setTextColor(Color.GREEN);
         } else {
             zGyroResult.setTextColor(Color.BLACK);
