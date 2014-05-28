@@ -25,13 +25,17 @@ package com.example.accelexp2;
         import java.util.Date;
 
 public class AccelerationActivity extends Activity {
-    private TextView xResult;
-    private TextView yResult;
-    private TextView zResult;
+    private TextView xAccelResult;
+    private TextView yAccelResult;
+    private TextView zAccelResult;
+    private TextView xGyroResult;
+    private TextView yGyroResult;
+    private TextView zGyroResult;
+
     private SensorManager sensorManager;
     private Sensor accelerationSensor;
     private Sensor gyroscopeSensor;
-    private float x, y, z, gyroX, gyroY, gyroZ;
+    private float accelX, accelY, accelZ, gyroX, gyroY, gyroZ;
 
     private static final String TAG = "AccelerationActivity";
     private boolean logging = false;
@@ -56,12 +60,18 @@ public class AccelerationActivity extends Activity {
 
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
-        xResult = (TextView) findViewById(R.id.x_result);
-        yResult = (TextView) findViewById(R.id.y_result);
-        zResult = (TextView) findViewById(R.id.z_result);
-        xResult.setText("No result yet");
-        yResult.setText("No result yet");
-        zResult.setText("No result yet");
+        xAccelResult = (TextView) findViewById(R.id.x_accel_result);
+        yAccelResult = (TextView) findViewById(R.id.y_accel_result);
+        zAccelResult = (TextView) findViewById(R.id.z_accel_result);
+        xAccelResult.setText("Ax is: ±x.xxx");
+        yAccelResult.setText("Ay is: ±x.xxx");
+        zAccelResult.setText("Az is: ±x.xxx");
+        xGyroResult = (TextView) findViewById(R.id.x_gyro_result);
+        yGyroResult = (TextView) findViewById(R.id.y_gyro_result);
+        zGyroResult = (TextView) findViewById(R.id.z_gyro_result);
+        xGyroResult.setText("Gx is: ±x.xxx");
+        yGyroResult.setText("Gy is: ±x.xxx");
+        zGyroResult.setText("Gz is: ±x.xxx");
 
         logging = false;
         logButton = (Button) findViewById(R.id.log_button);
@@ -107,12 +117,12 @@ public class AccelerationActivity extends Activity {
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
+            accelX = event.values[0];
+            accelY = event.values[1];
+            accelZ = event.values[2];
             time = new Time();
             time.setToNow();
-            refreshDisplay();
+            refreshAccelDisplay();
             log();
         }
 
@@ -130,41 +140,75 @@ public class AccelerationActivity extends Activity {
             gyroZ = event.values[2];
             time = new Time();
             time.setToNow();
+            refreshGyroDisplay();
             gyroscopeLog();
         }
 
     };
 
-    private void refreshDisplay() {
-        String xOutput = String.format("x is: %f", x);
-        String yOutput = String.format("y is: %f", y);
-        String zOutput = String.format("z is: %f", z);
+    private void refreshAccelDisplay() {
+        String xOutput = String.format("Ax is: %.3f", accelX);
+        String yOutput = String.format("Ay is: %.3f", accelY);
+        String zOutput = String.format("Az is: %.3f", accelZ);
 
-        xResult.setText(xOutput);
-        if (x < -1) {
-            xResult.setTextColor(Color.RED);
-        } else if (x > 1) {
-            xResult.setTextColor(Color.GREEN);
+        xAccelResult.setText(xOutput);
+        if (accelX < -1) {
+            xAccelResult.setTextColor(Color.RED);
+        } else if (accelX > 1) {
+            xAccelResult.setTextColor(Color.GREEN);
         } else {
-            xResult.setTextColor(Color.BLACK);
+            xAccelResult.setTextColor(Color.BLACK);
         }
 
-        yResult.setText(yOutput);
-        if (y < -1) {
-            yResult.setTextColor(Color.RED);
-        } else if (y > 1) {
-            yResult.setTextColor(Color.GREEN);
+        yAccelResult.setText(yOutput);
+        if (accelY < -1) {
+            yAccelResult.setTextColor(Color.RED);
+        } else if (accelY > 1) {
+            yAccelResult.setTextColor(Color.GREEN);
         } else {
-            yResult.setTextColor(Color.BLACK);
+            yAccelResult.setTextColor(Color.BLACK);
         }
 
-        zResult.setText(zOutput);
-        if (z < -1) {
-            zResult.setTextColor(Color.RED);
-        } else if (z > 1) {
-            zResult.setTextColor(Color.GREEN);
+        zAccelResult.setText(zOutput);
+        if (accelZ < -1) {
+            zAccelResult.setTextColor(Color.RED);
+        } else if (accelZ > 1) {
+            zAccelResult.setTextColor(Color.GREEN);
         } else {
-            zResult.setTextColor(Color.BLACK);
+            zAccelResult.setTextColor(Color.BLACK);
+        }
+    }
+
+    private void refreshGyroDisplay() {
+        String xOutput = String.format("Gx is: %.3f", gyroX);
+        String yOutput = String.format("Gy is: %.3f", gyroY);
+        String zOutput = String.format("Gz is: %.3f", gyroZ);
+
+        xGyroResult.setText(xOutput);
+        if (accelX < -1) {
+            xGyroResult.setTextColor(Color.RED);
+        } else if (accelX > 1) {
+            xGyroResult.setTextColor(Color.GREEN);
+        } else {
+            xGyroResult.setTextColor(Color.BLACK);
+        }
+
+        yGyroResult.setText(yOutput);
+        if (accelY < -1) {
+            yGyroResult.setTextColor(Color.RED);
+        } else if (accelY > 1) {
+            yGyroResult.setTextColor(Color.GREEN);
+        } else {
+            yGyroResult.setTextColor(Color.BLACK);
+        }
+
+        zGyroResult.setText(zOutput);
+        if (accelZ < -1) {
+            zGyroResult.setTextColor(Color.RED);
+        } else if (accelZ > 1) {
+            zGyroResult.setTextColor(Color.GREEN);
+        } else {
+            zGyroResult.setTextColor(Color.BLACK);
         }
     }
 
@@ -172,8 +216,8 @@ public class AccelerationActivity extends Activity {
         if (logging)
         {
             String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(accel): " + x + ", " + y + ", " + z);
-            logString = logString + (new Date()).getTime() + "," + x + "," + y + "," + z + ","
+            Log.i(TAG, formattedTime + "(accel): " + accelX + ", " + accelY + ", " + accelZ);
+            logString = logString + (new Date()).getTime() + "," + accelX + "," + accelY + "," + accelZ + ","
                     + formattedTime + "\n";
         }
     }

@@ -3,36 +3,115 @@
 android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent" >
+
     <TextView
         android:text="@string/welcome"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent" />
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        />
 
-    <TextView
-        android:id="@+id/x_result"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="x placeholder"
-        />
-    <TextView
-        android:id="@+id/y_result"
+        android:layout_height="10dp"
+        >
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="y placeholder"
-        />
-    <TextView
-        android:id="@+id/z_result"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/x_accel_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Ax is: ±x.xxx"
+            />
+
+
+        <TextView
+            android:id="@+id/y_accel_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Ay is: ±x.xxx"
+            />
+
+        <TextView
+            android:id="@+id/z_accel_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Az is: ±x.xxx"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="z placeholder"
-        />
+        android:layout_height="10dp"
+        >
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/x_gyro_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Gx is: ±x.xxx"
+            />
+
+        <TextView
+            android:id="@+id/y_gyro_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Gy is: ±x.xxx"
+            />
+
+        <TextView
+            android:id="@+id/z_gyro_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Gz is: ±x.xxx"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="10dp"
+        >
+    </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Logging"
         android:id="@+id/log_button"
@@ -40,38 +119,50 @@ android:layout_height="fill_parent" >
         android:onClick="toggleLogging"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AccelLogCopy"
-        android:id="@+id/accel_copy_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="copyAccelerationLog"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AccelLogSave"
-        android:id="@+id/accel_save_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="saveAccelerationLog"
-        />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="AccelLogCopy"
+                android:id="@+id/accel_copy_button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="copyAccelerationLog"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="AccelLogSave"
+                android:id="@+id/accel_save_button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="saveAccelerationLog"
+                />
+        </TableRow>
+        <TableRow>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="GyroLogCopy"
+                android:id="@+id/gyro_copy_button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="copyGyroscopeLog"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="GyroLogSave"
+                android:id="@+id/gyro_save_button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="saveGyroscopeLog"
+                />
+        </TableRow>
+    </TableLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GyroLogCopy"
-        android:id="@+id/gyro_copy_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="copyGyroscopeLog"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GyroLogSave"
-        android:id="@+id/gyro_save_button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="saveGyroscopeLog"
-        />
 
 </LinearLayout>
