@@ -50,7 +50,6 @@ public class AccelerationActivity extends Activity {
     private Button saveButton;
     private Button gyroSaveButton;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
