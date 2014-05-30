@@ -54,11 +54,13 @@ public class AccelerationActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acceleration);
+
+        // set up sensors
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerationSensor = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
+        // set up the text views
         xAccelResult = (TextView) findViewById(R.id.x_accel_result);
         yAccelResult = (TextView) findViewById(R.id.y_accel_result);
         zAccelResult = (TextView) findViewById(R.id.z_accel_result);
@@ -72,14 +74,14 @@ public class AccelerationActivity extends Activity {
         yGyroResult.setText("Gy is: ±x.xxx");
         zGyroResult.setText("Gz is: ±x.xxx");
 
+        // set up for logging
         logging = false;
         logButton = (Button) findViewById(R.id.log_button);
         logButton.setText("Enable Logging");
-
-
         logString = "";
         gyroLogString = "";
 
+        // set up the buttons for copying and saving
         copyButton = (Button) findViewById(R.id.accel_copy_button);
         copyButton.setText("Copy Accel Log");
         gyroCopyButton = (Button) findViewById(R.id.gyro_copy_button);
@@ -87,7 +89,6 @@ public class AccelerationActivity extends Activity {
 
         saveButton = (Button) findViewById(R.id.accel_save_button);
         saveButton.setText("Save Accel Log");
-
         gyroSaveButton = (Button) findViewById(R.id.gyro_save_button);
         gyroSaveButton.setText("Save Gyro Log");
     }
