@@ -164,5 +164,21 @@ android:layout_height="fill_parent" >
         </TableRow>
     </TableLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="10dp"
+        >
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/graphContainingLayout"
+        >
+    </LinearLayout>
+
+
 
 </LinearLayout>
