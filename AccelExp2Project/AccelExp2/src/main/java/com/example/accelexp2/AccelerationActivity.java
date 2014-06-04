@@ -14,8 +14,14 @@ package com.example.accelexp2;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
+
+        import com.jjoe64.graphview.GraphView;
+        import com.jjoe64.graphview.GraphView.GraphViewData;
+        import com.jjoe64.graphview.GraphViewSeries;
+        import com.jjoe64.graphview.LineGraphView;
 
         import java.io.File;
         import java.io.FileNotFoundException;
@@ -49,6 +55,9 @@ public class AccelerationActivity extends Activity {
     private Button gyroCopyButton;
     private Button saveButton;
     private Button gyroSaveButton;
+
+    private GraphView graphView;
+    private LinearLayout graphContainingLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +100,17 @@ public class AccelerationActivity extends Activity {
         saveButton.setText("Save Accel Log");
         gyroSaveButton = (Button) findViewById(R.id.gyro_save_button);
         gyroSaveButton.setText("Save Gyro Log");
+
+        GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {
+                new GraphViewData(1, 2.0d),
+                new GraphViewData(2, 1.5d),
+                new GraphViewData(3, 2.5d),
+                new GraphViewData(4, 1.0d)
+        });
+        graphView = new LineGraphView(this, "Graph");
+        graphView.addSeries(exampleSeries);
+        graphContainingLayout = (LinearLayout) findViewById(R.id.graphContainingLayout);
+        graphContainingLayout.addView(graphView);
     }
 
     @Override
