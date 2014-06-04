@@ -58,6 +58,14 @@ public class AccelerationActivity extends Activity {
 
     private GraphView graphView;
     private LinearLayout graphContainingLayout;
+    private GraphViewSeries accelXSeries;
+    private GraphViewSeries accelYSeries;
+    private GraphViewSeries accelZSeries;
+    private GraphViewSeries gyroXSeries;
+    private GraphViewSeries gyroYSeries;
+    private GraphViewSeries gyroZSeries;
+
+    private long systemTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,10 +115,27 @@ public class AccelerationActivity extends Activity {
                 new GraphViewData(3, 2.5d),
                 new GraphViewData(4, 1.0d)
         });
+        accelXSeries = new GraphViewSeries(new GraphViewData[]{});
+        accelYSeries = new GraphViewSeries(new GraphViewData[]{});
+        accelZSeries = new GraphViewSeries(new GraphViewData[]{});
+        gyroXSeries = new GraphViewSeries(new GraphViewData[]{});
+        gyroYSeries = new GraphViewSeries(new GraphViewData[]{});
+        gyroZSeries = new GraphViewSeries(new GraphViewData[]{});
+
         graphView = new LineGraphView(this, "Graph");
-        graphView.addSeries(exampleSeries);
+        graphView.addSeries(accelXSeries);
+        graphView.addSeries(accelYSeries);
+        graphView.addSeries(accelZSeries);
         graphContainingLayout = (LinearLayout) findViewById(R.id.graphContainingLayout);
         graphContainingLayout.addView(graphView);
+
+//        new Thread() {
+//            public void run() {
+//                Network.sendSQL("select * from gsensor");
+//            }
+//        }.start();
+
+
     }
 
     @Override
@@ -140,8 +165,13 @@ public class AccelerationActivity extends Activity {
             accelX = event.values[0];
             accelY = event.values[1];
             accelZ = event.values[2];
+            systemTime = (new Date()).getTime();
             time = new Time();
             time.setToNow();
+            // TODO: fix the graph!
+//            accelXSeries.appendData(new GraphViewData(systemTime, accelX), false, Integer.MAX_VALUE);
+//            accelYSeries.appendData(new GraphViewData(systemTime, accelY), false, Integer.MAX_VALUE);
+//            accelZSeries.appendData(new GraphViewData(systemTime, accelZ), false, Integer.MAX_VALUE);
             refreshAccelDisplay();
             log();
         }
@@ -160,6 +190,7 @@ public class AccelerationActivity extends Activity {
             gyroZ = event.values[2];
             time = new Time();
             time.setToNow();
+
             refreshGyroDisplay();
             gyroscopeLog();
         }
@@ -235,21 +266,35 @@ public class AccelerationActivity extends Activity {
     private void log() {
         if (logging)
         {
-            String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(accel): " + accelX + ", " + accelY + ", " + accelZ);
-            logString = logString + (new Date()).getTime() + "," + accelX + "," + accelY + "," + accelZ + ","
-                    + formattedTime + "\n";
+            new Thread() {
+                public void run() {
+                    String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
+                    Log.i(TAG, formattedTime + "(accel): " + accelX + ", " + accelY + ", " + accelZ);
+                    String systemTimeString = systemTime + "";
+                    logString = logString + systemTimeString + "," + accelX + "," + accelY + "," + accelZ + ","
+                            + formattedTime + "\n";
+                    Network.postAccelSensor(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime);
+                }
+            }.start();
+
         }
     }
 
     private void gyroscopeLog() {
         if (logging)
         {
-            String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(gyro): " + gyroX + ", " + gyroY + ", " + gyroZ);
-            gyroLogString = gyroLogString + (new Date()).getTime() + ","
-                    + gyroX + ", " + gyroY + ", " + gyroZ + ","
-                    + formattedTime + "\n";
+            new Thread() {
+                public void run() {
+                    String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
+                    Log.i(TAG, formattedTime + "(gyro): " + gyroX + ", " + gyroY + ", " + gyroZ);
+                    String systemTimeString = (new Date()).getTime() + "";
+                    gyroLogString = gyroLogString + systemTimeString + ","
+                            + gyroX + ", " + gyroY + ", " + gyroZ + ","
+                            + formattedTime + "\n";
+                    Network.postGyroSensor(systemTimeString, gyroX + "", gyroY + "", gyroZ + "", formattedTime);
+                }
+            }.start();
+
         }
     }
 
