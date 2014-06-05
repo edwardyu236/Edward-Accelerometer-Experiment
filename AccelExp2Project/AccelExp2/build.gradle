@@ -24,5 +24,5 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile files('libs/graphview-3.1.jar')
+    compile files('libs/GraphView-3.1.1.jar')
 }
