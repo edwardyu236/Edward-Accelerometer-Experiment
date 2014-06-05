@@ -169,9 +169,9 @@ public class AccelerationActivity extends Activity {
             time = new Time();
             time.setToNow();
             // TODO: fix the graph!
-//            accelXSeries.appendData(new GraphViewData(systemTime, accelX), false, Integer.MAX_VALUE);
-//            accelYSeries.appendData(new GraphViewData(systemTime, accelY), false, Integer.MAX_VALUE);
-//            accelZSeries.appendData(new GraphViewData(systemTime, accelZ), false, Integer.MAX_VALUE);
+//            accelXSeries.appendData(new GraphViewData(systemTime, accelX), false, 1000);
+//            accelYSeries.appendData(new GraphViewData(systemTime, accelY), false, 1000);
+//            accelZSeries.appendData(new GraphViewData(systemTime, accelZ), false, 1000);
             refreshAccelDisplay();
             log();
         }
