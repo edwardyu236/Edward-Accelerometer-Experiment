@@ -50,6 +50,7 @@ public class AccelerationActivity extends Activity {
 
     private String logString;
     private String gyroLogString;
+    private String initialTime;
 
     private Button copyButton;
     private Button gyroCopyButton;
@@ -109,12 +110,6 @@ public class AccelerationActivity extends Activity {
         gyroSaveButton = (Button) findViewById(R.id.gyro_save_button);
         gyroSaveButton.setText("Save Gyro Log");
 
-        GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {
-                new GraphViewData(1, 2.0d),
-                new GraphViewData(2, 1.5d),
-                new GraphViewData(3, 2.5d),
-                new GraphViewData(4, 1.0d)
-        });
         accelXSeries = new GraphViewSeries(new GraphViewData[]{});
         accelYSeries = new GraphViewSeries(new GraphViewData[]{});
         accelZSeries = new GraphViewSeries(new GraphViewData[]{});
@@ -132,6 +127,15 @@ public class AccelerationActivity extends Activity {
 //        new Thread() {
 //            public void run() {
 //                Network.sendSQL("select * from gsensor");
+//            }
+//        }.start();
+
+//        new Thread() {
+//            public void run() {
+//                Network.sendSQL("INSERT INTO asensor (st, x, y, z, ht, description)\n" +
+//                        "VALUES ('stTestOnAndroid','xTest','yTest','zTest','htTest','desTestOnAndroid');");
+//                Network.sendSQL("INSERT INTO gsensor (st, x, y, z, ht, description)\n" +
+//                        "VALUES ('stTestOnAndroid','xTest','yTest','zTest','htTest','desTestOnAndroidGYRO');");
 //            }
 //        }.start();
 
@@ -169,9 +173,9 @@ public class AccelerationActivity extends Activity {
             time = new Time();
             time.setToNow();
             // TODO: fix the graph!
-//            accelXSeries.appendData(new GraphViewData(systemTime, accelX), false, 1000);
-//            accelYSeries.appendData(new GraphViewData(systemTime, accelY), false, 1000);
-//            accelZSeries.appendData(new GraphViewData(systemTime, accelZ), false, 1000);
+//            accelXSeries.appendData(new GraphViewData(systemTime, accelX), false, 1000000);
+//            accelYSeries.appendData(new GraphViewData(systemTime, accelY), false, 1000000);
+//            accelZSeries.appendData(new GraphViewData(systemTime, accelZ), false, 1000000);
             refreshAccelDisplay();
             log();
         }
@@ -273,7 +277,7 @@ public class AccelerationActivity extends Activity {
                     String systemTimeString = systemTime + "";
                     logString = logString + systemTimeString + "," + accelX + "," + accelY + "," + accelZ + ","
                             + formattedTime + "\n";
-                    Network.postAccelSensor(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime);
+                    Network.addToAccelerometerDatabase(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime, initialTime);
                 }
             }.start();
 
@@ -291,7 +295,7 @@ public class AccelerationActivity extends Activity {
                     gyroLogString = gyroLogString + systemTimeString + ","
                             + gyroX + ", " + gyroY + ", " + gyroZ + ","
                             + formattedTime + "\n";
-                    Network.postGyroSensor(systemTimeString, gyroX + "", gyroY + "", gyroZ + "", formattedTime);
+                    Network.addToGyroscopeDatabase(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime, initialTime);
                 }
             }.start();
 
@@ -303,7 +307,6 @@ public class AccelerationActivity extends Activity {
 
             logging = false;
             logButton.setText("Enable Logging");
-            Log.i(TAG, "...Stopping Logging");
             Toast.makeText(getApplicationContext(),
                     "Stopping Logging", Toast.LENGTH_SHORT).show();
 
@@ -322,6 +325,8 @@ public class AccelerationActivity extends Activity {
             Log.i(TAG, "Starting Logging...");
             Toast.makeText(getApplicationContext(),
                     "Starting Logging", Toast.LENGTH_SHORT).show();
+
+            initialTime = (new Date()).getTime() + "";
 
             copyButton.setText("Log Copying is Disabled");
             saveButton.setText("Log Saving is Disabled");

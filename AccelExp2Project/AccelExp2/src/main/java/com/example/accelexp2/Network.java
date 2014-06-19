@@ -62,6 +62,7 @@ public class Network {
         params.add(new BasicNameValuePair("y", y));
         params.add(new BasicNameValuePair("z", z));
         params.add(new BasicNameValuePair("ht", humanTime));
+//        params.add(new BasicNameValuePair("description", "AndroidStudioTest"));
 
         response = httpRequest(0, "http://cms.draggablemedia.com/ust/asensor", params);
         Log.i("url", "response="+response);
@@ -118,6 +119,24 @@ public class Network {
         jObject = null;
         response = null;
         return result;
+    }
+
+    public static String addToAccelerometerDatabase(String systemTime, String x, String y, String z, String humanTime, String initialTime){
+        return sendSQL("INSERT INTO asensor (st, x, y, z, ht, description)\n" +
+                "VALUES ('"+ systemTime + "','"
+                + x + "','"
+                + y + "','"
+                + z + "','"
+                + humanTime + "','Accelerometer Reading Beginning At " + initialTime + "');");
+    }
+
+    public static String addToGyroscopeDatabase(String systemTime, String x, String y, String z, String humanTime, String initialTime){
+        return sendSQL("INSERT INTO gsensor (st, x, y, z, ht, description)\n" +
+                "VALUES ('"+ systemTime + "','"
+                + x + "','"
+                + y + "','"
+                + z + "','"
+                + humanTime + "','Gyroscope Reading Beginning At " + initialTime + "');");
     }
 
     public static String sendSQL(String sqlCommand){
