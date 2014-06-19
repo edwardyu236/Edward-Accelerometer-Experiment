@@ -14,8 +14,14 @@ package com.example.accelexp2;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
+
+        import com.jjoe64.graphview.GraphView;
+        import com.jjoe64.graphview.GraphView.GraphViewData;
+        import com.jjoe64.graphview.GraphViewSeries;
+        import com.jjoe64.graphview.LineGraphView;
 
         import java.io.File;
         import java.io.FileNotFoundException;
@@ -44,11 +50,23 @@ public class AccelerationActivity extends Activity {
 
     private String logString;
     private String gyroLogString;
+    private String initialTime;
 
     private Button copyButton;
     private Button gyroCopyButton;
     private Button saveButton;
     private Button gyroSaveButton;
+
+    private GraphView graphView;
+    private LinearLayout graphContainingLayout;
+    private GraphViewSeries accelXSeries;
+    private GraphViewSeries accelYSeries;
+    private GraphViewSeries accelZSeries;
+    private GraphViewSeries gyroXSeries;
+    private GraphViewSeries gyroYSeries;
+    private GraphViewSeries gyroZSeries;
+
+    private long systemTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +109,37 @@ public class AccelerationActivity extends Activity {
         saveButton.setText("Save Accel Log");
         gyroSaveButton = (Button) findViewById(R.id.gyro_save_button);
         gyroSaveButton.setText("Save Gyro Log");
+
+        accelXSeries = new GraphViewSeries(new GraphViewData[]{});
+        accelYSeries = new GraphViewSeries(new GraphViewData[]{});
+        accelZSeries = new GraphViewSeries(new GraphViewData[]{});
+        gyroXSeries = new GraphViewSeries(new GraphViewData[]{});
+        gyroYSeries = new GraphViewSeries(new GraphViewData[]{});
+        gyroZSeries = new GraphViewSeries(new GraphViewData[]{});
+
+        graphView = new LineGraphView(this, "Graph");
+        graphView.addSeries(accelXSeries);
+        graphView.addSeries(accelYSeries);
+        graphView.addSeries(accelZSeries);
+        graphContainingLayout = (LinearLayout) findViewById(R.id.graphContainingLayout);
+        graphContainingLayout.addView(graphView);
+
+//        new Thread() {
+//            public void run() {
+//                Network.sendSQL("select * from gsensor");
+//            }
+//        }.start();
+
+//        new Thread() {
+//            public void run() {
+//                Network.sendSQL("INSERT INTO asensor (st, x, y, z, ht, description)\n" +
+//                        "VALUES ('stTestOnAndroid','xTest','yTest','zTest','htTest','desTestOnAndroid');");
+//                Network.sendSQL("INSERT INTO gsensor (st, x, y, z, ht, description)\n" +
+//                        "VALUES ('stTestOnAndroid','xTest','yTest','zTest','htTest','desTestOnAndroidGYRO');");
+//            }
+//        }.start();
+
+
     }
 
     @Override
@@ -120,8 +169,13 @@ public class AccelerationActivity extends Activity {
             accelX = event.values[0];
             accelY = event.values[1];
             accelZ = event.values[2];
+            systemTime = (new Date()).getTime();
             time = new Time();
             time.setToNow();
+            // TODO: fix the graph!
+//            accelXSeries.appendData(new GraphViewData(systemTime, accelX), false, 1000000);
+//            accelYSeries.appendData(new GraphViewData(systemTime, accelY), false, 1000000);
+//            accelZSeries.appendData(new GraphViewData(systemTime, accelZ), false, 1000000);
             refreshAccelDisplay();
             log();
         }
@@ -140,6 +194,7 @@ public class AccelerationActivity extends Activity {
             gyroZ = event.values[2];
             time = new Time();
             time.setToNow();
+
             refreshGyroDisplay();
             gyroscopeLog();
         }
@@ -215,21 +270,35 @@ public class AccelerationActivity extends Activity {
     private void log() {
         if (logging)
         {
-            String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(accel): " + accelX + ", " + accelY + ", " + accelZ);
-            logString = logString + (new Date()).getTime() + "," + accelX + "," + accelY + "," + accelZ + ","
-                    + formattedTime + "\n";
+            new Thread() {
+                public void run() {
+                    String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
+                    Log.i(TAG, formattedTime + "(accel): " + accelX + ", " + accelY + ", " + accelZ);
+                    String systemTimeString = systemTime + "";
+                    logString = logString + systemTimeString + "," + accelX + "," + accelY + "," + accelZ + ","
+                            + formattedTime + "\n";
+                    Network.addToAccelerometerDatabase(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime, initialTime);
+                }
+            }.start();
+
         }
     }
 
     private void gyroscopeLog() {
         if (logging)
         {
-            String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
-            Log.i(TAG, formattedTime + "(gyro): " + gyroX + ", " + gyroY + ", " + gyroZ);
-            gyroLogString = gyroLogString + (new Date()).getTime() + ","
-                    + gyroX + ", " + gyroY + ", " + gyroZ + ","
-                    + formattedTime + "\n";
+            new Thread() {
+                public void run() {
+                    String formattedTime = time.format("%Y-%m-%d %H:%M:%S");
+                    Log.i(TAG, formattedTime + "(gyro): " + gyroX + ", " + gyroY + ", " + gyroZ);
+                    String systemTimeString = (new Date()).getTime() + "";
+                    gyroLogString = gyroLogString + systemTimeString + ","
+                            + gyroX + ", " + gyroY + ", " + gyroZ + ","
+                            + formattedTime + "\n";
+                    Network.addToGyroscopeDatabase(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime, initialTime);
+                }
+            }.start();
+
         }
     }
 
@@ -238,7 +307,6 @@ public class AccelerationActivity extends Activity {
 
             logging = false;
             logButton.setText("Enable Logging");
-            Log.i(TAG, "...Stopping Logging");
             Toast.makeText(getApplicationContext(),
                     "Stopping Logging", Toast.LENGTH_SHORT).show();
 
@@ -257,6 +325,8 @@ public class AccelerationActivity extends Activity {
             Log.i(TAG, "Starting Logging...");
             Toast.makeText(getApplicationContext(),
                     "Starting Logging", Toast.LENGTH_SHORT).show();
+
+            initialTime = (new Date()).getTime() + "";
 
             copyButton.setText("Log Copying is Disabled");
             saveButton.setText("Log Saving is Disabled");
