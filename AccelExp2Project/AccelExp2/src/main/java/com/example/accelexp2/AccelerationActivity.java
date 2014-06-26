@@ -295,7 +295,7 @@ public class AccelerationActivity extends Activity {
                     gyroLogString = gyroLogString + systemTimeString + ","
                             + gyroX + ", " + gyroY + ", " + gyroZ + ","
                             + formattedTime + "\n";
-                    Network.addToGyroscopeDatabase(systemTimeString, accelX + "", accelY + "", accelZ + "", formattedTime, initialTime);
+                    Network.addToGyroscopeDatabase(systemTimeString, gyroX + "", gyroY + "", gyroZ + "", formattedTime, initialTime);
                 }
             }.start();
 
