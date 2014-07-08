@@ -152,20 +152,22 @@ public class Network {
         Log.i("url", "sendsql response="+response);
         if(response.length() > 0){
             try {
-                jObject = new JSONObject(response);
-                code = jObject.getString("code"); //success = 0 , fail = 1
-                if (code.equals("1")) {
-                    Log.e("url", "sendsql Error, Code = " + code);
-                }
-
+//                jObject = new JSONObject(response);
+//                code = jObject.getString("code"); //success = 0 , fail = 1
+//                if (code.equals("1")) {
+//                    Log.e("url", "sendsql Error, Code = " + code);
+//                }
                 JSONArray jsonArray = new JSONArray(response);
+                Log.d("url", "survived till here");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
+                    Log.i("url", "id: " + obj.getString("id"));
                     Log.i("url", obj.toString());
                 }
             } catch (Exception e) {
 //                if(Constants.LOG) e.printStackTrace();
                 jObject = null;
+                Log.e("url", "Error: " + e.getMessage());
                 return "Error:\n"+response;
             }
         } else {

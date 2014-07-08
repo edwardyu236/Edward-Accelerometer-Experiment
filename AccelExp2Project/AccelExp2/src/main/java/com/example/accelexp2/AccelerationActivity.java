@@ -124,11 +124,11 @@ public class AccelerationActivity extends Activity {
         graphContainingLayout = (LinearLayout) findViewById(R.id.graphContainingLayout);
         graphContainingLayout.addView(graphView);
 
-//        new Thread() {
-//            public void run() {
-//                Network.sendSQL("select * from gsensor");
-//            }
-//        }.start();
+        new Thread() {
+            public void run() {
+                Network.sendSQL("select * from gsensor");
+            }
+        }.start();
 
 //        new Thread() {
 //            public void run() {
