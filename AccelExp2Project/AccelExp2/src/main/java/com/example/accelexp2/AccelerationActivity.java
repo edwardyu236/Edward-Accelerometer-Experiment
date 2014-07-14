@@ -110,25 +110,25 @@ public class AccelerationActivity extends Activity {
         gyroSaveButton = (Button) findViewById(R.id.gyro_save_button);
         gyroSaveButton.setText("Save Gyro Log");
 
-        accelXSeries = new GraphViewSeries(new GraphViewData[]{});
-        accelYSeries = new GraphViewSeries(new GraphViewData[]{});
-        accelZSeries = new GraphViewSeries(new GraphViewData[]{});
-        gyroXSeries = new GraphViewSeries(new GraphViewData[]{});
-        gyroYSeries = new GraphViewSeries(new GraphViewData[]{});
-        gyroZSeries = new GraphViewSeries(new GraphViewData[]{});
+//        accelXSeries = new GraphViewSeries(new GraphViewData[]{});
+//        accelYSeries = new GraphViewSeries(new GraphViewData[]{});
+//        accelZSeries = new GraphViewSeries(new GraphViewData[]{});
+//        gyroXSeries = new GraphViewSeries(new GraphViewData[]{});
+//        gyroYSeries = new GraphViewSeries(new GraphViewData[]{});
+//        gyroZSeries = new GraphViewSeries(new GraphViewData[]{});
 
-        graphView = new LineGraphView(this, "Graph");
-        graphView.addSeries(accelXSeries);
-        graphView.addSeries(accelYSeries);
-        graphView.addSeries(accelZSeries);
-        graphContainingLayout = (LinearLayout) findViewById(R.id.graphContainingLayout);
-        graphContainingLayout.addView(graphView);
+//        graphView = new LineGraphView(this, "Graph");
+//        graphView.addSeries(accelXSeries);
+//        graphView.addSeries(accelYSeries);
+//        graphView.addSeries(accelZSeries);
+//        graphContainingLayout = (LinearLayout) findViewById(R.id.graphContainingLayout);
+//        graphContainingLayout.addView(graphView);
 
-        new Thread() {
-            public void run() {
-                Network.sendSQL("select * from gsensor");
-            }
-        }.start();
+//        new Thread() {
+//            public void run() {
+//                Network.sendSQL("select * from gsensor");
+//            }
+//        }.start();
 
 //        new Thread() {
 //            public void run() {
