@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, AccelerationActivity!</string>
-    <string name="app_name">Accel+Gyro Experiment</string>
-    <string name="welcome">Edward\'s Accelerometer and Gyroscope Experiment</string>
+    <string name="app_name">Accel Experiment</string>
+    <string name="welcome">Ed\'s Accelerometer Experiment</string>
 </resources>
