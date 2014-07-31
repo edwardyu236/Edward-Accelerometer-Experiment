@@ -67,114 +67,16 @@
         >
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/x_gyro_result"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:text="Gx is: ±x.xxx"
-            />
-
-        <TextView
-            android:id="@+id/y_gyro_result"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:text="Gy is: ±x.xxx"
-            />
-
-        <TextView
-            android:id="@+id/z_gyro_result"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:text="Gz is: ±x.xxx"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="10dp"
-        >
-    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="Logging"
         android:id="@+id/log_button"
         android:layout_gravity="center_horizontal"
         android:onClick="toggleLogging"
         />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TableRow>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="AccelLogCopy"
-                android:id="@+id/accel_copy_button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="copyAccelerationLog"
-                />
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="AccelLogSave"
-                android:id="@+id/accel_save_button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="saveAccelerationLog"
-                />
-        </TableRow>
-        <TableRow>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="GyroLogCopy"
-                android:id="@+id/gyro_copy_button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="copyGyroscopeLog"
-                />
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="GyroLogSave"
-                android:id="@+id/gyro_save_button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="saveGyroscopeLog"
-                />
-        </TableRow>
-    </TableLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="10dp"
-        android:id="@+id/graphContainingLayout"
-        >
-    </LinearLayout>
-
 
 
 </LinearLayout>

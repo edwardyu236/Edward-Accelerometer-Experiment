@@ -20,6 +20,7 @@ import java.util.List;
  * Created by edwardyu on 04/06/14.
  */
 public class Network {
+
     private static String httpRequest(int indicator, String url,List<NameValuePair> param){
         String response = "";
         HttpPost post;
@@ -48,95 +49,6 @@ public class Network {
         if (response.startsWith("\uFEFF"))
             response = response.substring(1);
         return response;
-    }
-
-
-    public static String postAccelSensor(String systemTime, String x, String y, String z, String humanTime){
-        JSONObject jObject;
-        String response;
-        String code, errMsg;
-        String result = "";
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("st", systemTime));
-        params.add(new BasicNameValuePair("x", x));
-        params.add(new BasicNameValuePair("y", y));
-        params.add(new BasicNameValuePair("z", z));
-        params.add(new BasicNameValuePair("ht", humanTime));
-//        params.add(new BasicNameValuePair("description", "AndroidStudioTest"));
-
-        response = httpRequest(0, "http://cms.draggablemedia.com/ust/asensor", params);
-        Log.i("url", "response="+response);
-        if(response.length() > 0){
-            try {
-                jObject = new JSONObject(response);
-                code = jObject.getString("code"); //success = 0 , fail = 1
-                if (code.equals("1")) {
-                    Log.e("url", "Error, Code = " + code);
-                }
-            } catch (Exception e) {
-//                if(Constants.LOG) e.printStackTrace();
-                jObject = null;
-                return "Error:\n"+response;
-            }
-        } else {
-            Log.e("url","Error Connecting.");
-        }
-        jObject = null;
-        response = null;
-        return result;
-    }
-
-    public static String postGyroSensor(String systemTime, String x, String y, String z, String humanTime){
-        JSONObject jObject;
-        String response;
-        String code, errMsg;
-        String result = "";
-
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("st", systemTime));
-        params.add(new BasicNameValuePair("x", x));
-        params.add(new BasicNameValuePair("y", y));
-        params.add(new BasicNameValuePair("z", z));
-        params.add(new BasicNameValuePair("ht", humanTime));
-
-        response = httpRequest(0, "http://cms.draggablemedia.com/ust/gsensor", params);
-        Log.i("url", "response="+response);
-        if(response.length() > 0){
-            try {
-                jObject = new JSONObject(response);
-                code = jObject.getString("code"); //success = 0 , fail = 1
-                if (code.equals("1")) {
-                    Log.e("url", "Error, Code = " + code);
-                }
-            } catch (Exception e) {
-//                if(Constants.LOG) e.printStackTrace();
-                jObject = null;
-                return "Error:\n"+response;
-            }
-        } else {
-            Log.e("url","Error Connecting.");
-        }
-        jObject = null;
-        response = null;
-        return result;
-    }
-
-    public static String addToAccelerometerDatabase(String systemTime, String x, String y, String z, String humanTime, String initialTime){
-        return sendSQL("INSERT INTO asensor (st, x, y, z, ht, description)\n" +
-                "VALUES ('"+ systemTime + "','"
-                + x + "','"
-                + y + "','"
-                + z + "','"
-                + humanTime + "','Accelerometer Reading Beginning At " + initialTime + "');");
-    }
-
-    public static String addToGyroscopeDatabase(String systemTime, String x, String y, String z, String humanTime, String initialTime){
-        return sendSQL("INSERT INTO gsensor (st, x, y, z, ht, description)\n" +
-                "VALUES ('"+ systemTime + "','"
-                + x + "','"
-                + y + "','"
-                + z + "','"
-                + humanTime + "','Gyroscope Reading Beginning At " + initialTime + "');");
     }
 
     public static String sendSQL(String sqlCommand){
@@ -177,5 +89,16 @@ public class Network {
         response = null;
         return result;
     }
+
+    public static String addToAccelerometerDatabase(String systemTime, String x, String y, String z, String humanTime, String initialTime){
+        return sendSQL("INSERT INTO gestureLibrary (st, x, y, z, ht, description)\n" +
+                "VALUES ('"+ systemTime + "','"
+                + x + "','"
+                + y + "','"
+                + z + "','"
+                + humanTime + "','Accelerometer Reading Beginning At " + initialTime + "');");
+    }
+
+
 
 }
